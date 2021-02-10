@@ -1,11 +1,19 @@
 name: build_and_run
 on: [push]
 jobs:
-  build:
+  build_and_run:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - run: cmake src/
-      - run: make
-      - run: ./hello
+      - name: create build directory
+        run: mkdir build
+      - name: run cmake
+        working-directory: build
+        run: cmake ../src
+      - name: run make
+        working-directory: build
+        run: make
+      - name: run built executable
+        working-directory: build
+        run: ./hello
 
